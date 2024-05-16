@@ -79,6 +79,7 @@
         event.preventDefault();
         var userInput = document.getElementById("user-text").value;
         document.getElementById("display-text").innerText = userInput;
+        document.getElementById("user-text").value = ''; // Clearing the text field
     });
 </script>
 
