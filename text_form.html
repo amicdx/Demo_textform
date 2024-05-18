@@ -83,9 +83,10 @@
         if (namePattern.test(userName.trim())) {
             var assumedAge = Math.floor(Math.random() * 100) + 1; // Generates a random age between 1 and 100
             document.getElementById("display-text").innerText = userName + " monea ninak " + assumedAge + " vayas aayi ";
-        } else {
-
-        document.getElementById("display-text").innerText = "shredhich adik ambanea";
+        }
+        else {
+            
+         document.getElementById("display-text").innerText = " ithokkea shreadhich adikkandea ambanea";
         }
         document.getElementById("user-text").value = ''; // Clearing the text field
     });
