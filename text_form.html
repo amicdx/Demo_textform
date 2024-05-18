@@ -81,8 +81,18 @@
         var namePattern = /^[a-zA-Z\s]+$/;
 
         if (namePattern.test(userName.trim())) {
-            var assumedAge = Math.floor(Math.random() * 100) + 1; // Generates a random age between 1 and 100
-            document.getElementById("display-text").innerText = userName + " monea ninak " + assumedAge + " vayas aayi ";
+            fetch(`https://api.agify.io/?name=${userName}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.age) {
+                        document.getElementById("display-text").innerText = `${userName} is estimated to be ${data.age} years old.`;
+                    } else {
+                        document.getElementById("display-text").innerText = `Could not determine the age for ${userName}.`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("display-text").innerText = `Error fetching age: ${error}`;
+                });
         }
         else {
             
