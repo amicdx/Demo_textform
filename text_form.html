@@ -68,7 +68,7 @@
 
 <div id="text-container">
     <form id="text-form">
-        <input type="text" id="user-text" placeholder="Type something...">
+        <input type="text" id="user-text" placeholder="Nintea name para monea..">
         <input type="submit" value="Submit">
     </form>
     <div id="display-text"></div>
@@ -77,8 +77,16 @@
 <script>
     document.getElementById("text-form").addEventListener("submit", function(event) {
         event.preventDefault();
-        var userInput = document.getElementById("user-text").value;
-        document.getElementById("display-text").innerText = userInput;
+        var userName = document.getElementById("user-text").value;
+        var namePattern = /^[a-zA-Z\s]+$/;
+
+        if (userName.trim() !== ''){
+            var assumedAge = Math.floor(Math.random() * 100) + 1; // Generates a random age between 1 and 100
+            document.getElementById("display-text").innerText = userName + " monea ninak " + assumedAge + " vayas aayi ";
+        } else {
+
+        document.getElementById("display-text").innerText = "shredhich adik ambanea";
+        }
         document.getElementById("user-text").value = ''; // Clearing the text field
     });
 </script>
