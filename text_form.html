@@ -71,22 +71,28 @@
         <input type="text" id="user-text" placeholder=" thumara naam kyaa hhea..">
         <input type="submit" value="Submit">
     </form>
-    <div id="display-text"></div>
+    <div id="display-text" aria-live="polite"></div>
 </div>
 
 <script>
     document.getElementById("text-form").addEventListener("submit", function(event) {
         event.preventDefault();
-        var userName = document.getElementById("user-text").value;
+        var userName = document.getElementById("user-text").value.trim();
         var namePattern = /^[a-zA-Z\s]+$/;
 
-        if (namePattern.test(userName.trim())) {
+        if (namePattern.test(userName)) {
             fetch(`https://api.agify.io/?name=${userName}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.age) {
-                        document.getElementById("display-text").innerText = `${userName} is estimated to be ${data.age} years old.`;
-                    } else {
+                        if (data.age < 55){
+                            document.getElementById("display-text").innerText = `Ada ${userName} monea. ninak ${data.age} vayas aayi .kurach kaalam koodi jevikka`;
+                       } else {
+                            document.getElementById("display-text").innerText = `Ada ${userName} monea. ninak ${data.age} vayas aayi .aduth thannea theermaanam avoluoo...`;
+
+
+                        }
+                    }else {
                         document.getElementById("display-text").innerText = `Could not determine the age for ${userName}.`;
                     }
                 })
