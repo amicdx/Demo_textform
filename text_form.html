@@ -86,9 +86,9 @@
                 .then(data => {
                     if (data.age) {
                         if (data.age < 55){
-                            document.getElementById("display-text").innerText = `Ada ${userName} monea. ninak ${data.age} vayas aayi .kurach kaalam koodi jevikka . `;
+                            document.getElementById("display-text").innerText = `Hey ${userName}. you are ${data.age} year's old  .kurach kaalam koodi jevikka . `;
                        } else {
-                            document.getElementById("display-text").innerText = `Ada ${userName} monea. ninak ${data.age} vayas aayi .aduth thannea theermaanam avoluoo...`;
+                            document.getElementById("display-text").innerText = `Hey ${userName}. You are ${data.age} year's old .aduth thannea theermaanam avoluoo...`;
 
 
                         }
@@ -108,7 +108,7 @@
                             document.getElementById("display-text").innerText += ` Error fetching gender: ${error}`;
                         });
 
-                })
+                 })
                 .catch(error => {
                     document.getElementById("display-text").innerText = `Error fetching age: ${error}`;
                 });
