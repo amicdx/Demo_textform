@@ -86,7 +86,7 @@
                 .then(data => {
                     if (data.age) {
                         if (data.age < 55){
-                            document.getElementById("display-text").innerText = `Ada ${userName} monea. ninak ${data.age} vayas aayi .kurach kaalam koodi jevikka`;
+                            document.getElementById("display-text").innerText = `Ada ${userName} monea. ninak ${data.age} vayas aayi .kurach kaalam koodi jevikka . `;
                        } else {
                             document.getElementById("display-text").innerText = `Ada ${userName} monea. ninak ${data.age} vayas aayi .aduth thannea theermaanam avoluoo...`;
 
@@ -95,6 +95,19 @@
                     }else {
                         document.getElementById("display-text").innerText = `Could not determine the age for ${userName}.`;
                     }
+                    fetch(`https://api.genderize.io/?name=${userName}`)
+                        .then(response => response.json())
+                        .then(genderData => {
+                            if (genderData.gender) {
+                                document.getElementById("display-text").innerText += ` nee oru ${genderData.gender} aanu.`;
+                            } else {
+                                document.getElementById("display-text").innerText += ` Could not determine the gender for ${userName}.`;
+                            }
+                        })
+                        .catch(error => {
+                            document.getElementById("display-text").innerText += ` Error fetching gender: ${error}`;
+                        });
+
                 })
                 .catch(error => {
                     document.getElementById("display-text").innerText = `Error fetching age: ${error}`;
