@@ -85,41 +85,50 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.age) {
-                        if (data.age < 55){
-                            document.getElementById("display-text").innerText = `Hey ${userName}. you are ${data.age} year's old  .kurach kaalam koodi jevikka . `;
-                       } else {
-                            document.getElementById("display-text").innerText = `Hey ${userName}. You are ${data.age} year's old .aduth thannea theermaanam avoluoo...`;
+                        fetch(`https://api.genderize.io/?name=${userName}`)
+                            .then(response => response.json())
+                            .then(genderData => {
+                                if (genderData.gender) {
+                                    let ageMessage = data.age < 55 ? "young" : "old";
+                                    let message = "";
 
+                                    if (genderData.gender === "male") {
+                                        if (data.age < 55) {
+                                            message = `Ada monea, Ninak ${data.age} vayas aayi.  Kurach kalam koodi jeevika. your  are a purushan.`;
+                                        } else {
+                                            message = `Ada kilava, Nigalk ${data.age} vayas aayi. Udanea thatti povum. you are a Thandha.`;
+                                        }
+                                    } else if (genderData.gender === "female") {
+                                        if (data.age < 55) {
+                                            message = `Adi molea, Ninak ${data.age} Vayas aayi. Kurach kaalam koodi jeevikka. you  are cute.`;
+                                        } else {
+                                            message = `Hey Thallea, Nigalk ${data.age} Vayas aayi. Udanea thatti povum. you are a Thalla.`;
+                                        }
+                                    }
 
-                        }
-                    }else {
+                                    document.getElementById("display-text").innerText = message;
+                                } else {
+                                    document.getElementById("display-text").innerText = `Could not determine the gender for ${userName}.`;
+                                }
+                            })
+                            .catch(error => {
+                                document.getElementById("display-text").innerText = `Error fetching gender: ${error}`;
+                            });
+                    } else {
                         document.getElementById("display-text").innerText = `Could not determine the age for ${userName}.`;
                     }
-                    fetch(`https://api.genderize.io/?name=${userName}`)
-                        .then(response => response.json())
-                        .then(genderData => {
-                            if (genderData.gender) {
-                                document.getElementById("display-text").innerText += ` nee oru ${genderData.gender} aanu.`;
-                            } else {
-                                document.getElementById("display-text").innerText += ` Could not determine the gender for ${userName}.`;
-                            }
-                        })
-                        .catch(error => {
-                            document.getElementById("display-text").innerText += ` Error fetching gender: ${error}`;
-                        });
-
-                 })
+                })
                 .catch(error => {
                     document.getElementById("display-text").innerText = `Error fetching age: ${error}`;
                 });
-        }
-        else {
-            
-         document.getElementById("display-text").innerText = " ithokkea shreadhich adikkandea ambanea";
+        } else {
+            document.getElementById("display-text").innerText = "Invalid name format. Please enter a valid name.";
         }
         document.getElementById("user-text").value = ''; // Clearing the text field
     });
+   
 </script>
 
 </body>
 </html>
+    
