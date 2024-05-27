@@ -80,6 +80,19 @@
         var userName = document.getElementById("user-text").value.trim();
         var namePattern = /^[a-zA-Z\s]+$/;
 
+        function typeWriter(text, element) {
+            let index = 0;
+            element.innerHTML = "";
+            function type() {
+                if (index < text.length) {
+                    element.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(type, 50);
+                }
+            }
+            type();
+        }
+
         if (namePattern.test(userName)) {
             fetch(`https://api.agify.io/?name=${userName}`)
                 .then(response => response.json())
@@ -106,23 +119,23 @@
                                         }
                                     }
 
-                                    document.getElementById("display-text").innerText = message;
+                                    typeWriter(message, document.getElementById("display-text"));
                                 } else {
-                                    document.getElementById("display-text").innerText = `Could not determine the gender for ${userName}.`;
+                                    typeWriter(`Could not determine the gender for ${userName}.`, document.getElementById("display-text"));
                                 }
                             })
                             .catch(error => {
-                                document.getElementById("display-text").innerText = `Error fetching gender: ${error}`;
+                                typeWriter(`Error fetching gender: ${error}`, document.getElementById("display-text"));
                             });
                     } else {
-                        document.getElementById("display-text").innerText = `Could not determine the age for ${userName}.`;
+                        typeWriter(`Could not determine the age for ${userName}.`, document.getElementById("display-text"));
                     }
                 })
                 .catch(error => {
-                    document.getElementById("display-text").innerText = `Error fetching age: ${error}`;
+                    typeWriter(`Error fetching age: ${error}`, document.getElementById("display-text"));
                 });
         } else {
-            document.getElementById("display-text").innerText = "shreadhich adik myrea.";
+            typeWriter("shreadhich adi .", document.getElementById("display-text"));
         }
         document.getElementById("user-text").value = ''; // Clearing the text field
     });
